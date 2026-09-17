@@ -1,0 +1,825 @@
+<title>Przewodnik po naffy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&display=swap');
+
+:root {
+  --bg: #FAFAF7;
+  --bg-card: #FFFFFF;
+  --bg-accent: #F0EDE6;
+  --bg-highlight: #E8F5E9;
+  --text: #1A1A1A;
+  --text-secondary: #5A5A52;
+  --text-muted: #8A8A80;
+  --accent: #2E7D32;
+  --accent-light: #4CAF50;
+  --accent-glow: rgba(46,125,50,0.08);
+  --border: #E0DDD6;
+  --border-light: #EEECE6;
+  --shadow: rgba(26,26,26,0.06);
+  --tag-blue: #E3F2FD;
+  --tag-blue-text: #1565C0;
+  --tag-green: #E8F5E9;
+  --tag-green-text: #2E7D32;
+  --tag-orange: #FFF3E0;
+  --tag-orange-text: #E65100;
+  --tag-purple: #F3E5F5;
+  --tag-purple-text: #6A1B9A;
+  --tag-red: #FFEBEE;
+  --tag-red-text: #C62828;
+  --tag-teal: #E0F2F1;
+  --tag-teal-text: #00695C;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413;
+    --bg-card: #1E1E1C;
+    --bg-accent: #252522;
+    --bg-highlight: #1B3A1B;
+    --text: #EAEAE6;
+    --text-secondary: #B0B0A8;
+    --text-muted: #787870;
+    --accent: #66BB6A;
+    --accent-light: #81C784;
+    --accent-glow: rgba(102,187,106,0.1);
+    --border: #333330;
+    --border-light: #2A2A28;
+    --shadow: rgba(0,0,0,0.3);
+    --tag-blue: #1A2636;
+    --tag-blue-text: #64B5F6;
+    --tag-green: #1A2E1A;
+    --tag-green-text: #81C784;
+    --tag-orange: #2E1E0E;
+    --tag-orange-text: #FFB74D;
+    --tag-purple: #261A2E;
+    --tag-purple-text: #CE93D8;
+    --tag-red: #2E1A1A;
+    --tag-red-text: #EF9A9A;
+    --tag-teal: #1A2E2A;
+    --tag-teal-text: #80CBC4;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #141413;
+  --bg-card: #1E1E1C;
+  --bg-accent: #252522;
+  --bg-highlight: #1B3A1B;
+  --text: #EAEAE6;
+  --text-secondary: #B0B0A8;
+  --text-muted: #787870;
+  --accent: #66BB6A;
+  --accent-light: #81C784;
+  --accent-glow: rgba(102,187,106,0.1);
+  --border: #333330;
+  --border-light: #2A2A28;
+  --shadow: rgba(0,0,0,0.3);
+  --tag-blue: #1A2636;
+  --tag-blue-text: #64B5F6;
+  --tag-green: #1A2E1A;
+  --tag-green-text: #81C784;
+  --tag-orange: #2E1E0E;
+  --tag-orange-text: #FFB74D;
+  --tag-purple: #261A2E;
+  --tag-purple-text: #CE93D8;
+  --tag-red: #2E1A1A;
+  --tag-red-text: #EF9A9A;
+  --tag-teal: #1A2E2A;
+  --tag-teal-text: #80CBC4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.65;
+  padding-inline: 20px;
+  padding-block: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  text-wrap: balance;
+  line-height: 1.2;
+}
+
+.hero {
+  text-align: center;
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 48px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--bg-highlight);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.toc h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.toc-item:hover {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.toc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.section {
+  margin-bottom: 56px;
+  scroll-margin-top: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.section-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.section-header h2 {
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px var(--shadow);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--border);
+}
+
+.card h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.tag-blue { background: var(--tag-blue); color: var(--tag-blue-text); }
+.tag-green { background: var(--tag-green); color: var(--tag-green-text); }
+.tag-orange { background: var(--tag-orange); color: var(--tag-orange-text); }
+.tag-purple { background: var(--tag-purple); color: var(--tag-purple-text); }
+.tag-red { background: var(--tag-red); color: var(--tag-red-text); }
+.tag-teal { background: var(--tag-teal); color: var(--tag-teal-text); }
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px var(--shadow);
+  counter-increment: step;
+}
+
+.step::before {
+  content: counter(step);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.step-content h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.step-content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.highlight-box {
+  background: var(--bg-highlight);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+
+.highlight-box p {
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.highlight-box strong {
+  color: var(--accent);
+}
+
+.pricing-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 8px var(--shadow);
+  margin: 24px 0;
+}
+
+.pricing-stat {
+  text-align: center;
+}
+
+.pricing-stat .num {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.pricing-stat .label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.product-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.product-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.product-pill .icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 8px 0;
+}
+
+.check-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.faq summary {
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: var(--text);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.faq summary::after {
+  content: '+';
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.faq[open] summary::after {
+  content: '\2212';
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq .faq-body {
+  padding: 0 20px 16px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 0 48px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 24px;
+}
+
+.footer p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer .cta {
+  display: inline-block;
+  margin-top: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.footer .cta:hover { opacity: 0.9; }
+
+@media (max-width: 500px) {
+  .toc-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .product-types { grid-template-columns: repeat(2, 1fr); }
+  .pricing-bar { flex-direction: column; gap: 20px; }
+  .toc { padding: 20px; }
+}
+</style>
+
+<div class="hero">
+  <div class="hero-badge">Darmowy przewodnik</div>
+  <h1>Kompletny przewodnik<br>po <span>naffy</span></h1>
+  <p>Wszystko, co musisz wiedzieć, żeby w 10 minut uruchomić swój sklep z produktami cyfrowymi i zacząć zarabiać w internecie.</p>
+</div>
+
+<nav class="toc">
+  <h3>Spis treści</h3>
+  <div class="toc-grid">
+    <a class="toc-item" href="#czym-jest"><span class="toc-icon" style="background:var(--tag-blue);color:var(--tag-blue-text)">?</span> Czym jest naffy?</a>
+    <a class="toc-item" href="#start"><span class="toc-icon" style="background:var(--tag-green);color:var(--tag-green-text)">1</span> Jak zacząć?</a>
+    <a class="toc-item" href="#produkty"><span class="toc-icon" style="background:var(--tag-orange);color:var(--tag-orange-text)">P</span> Co możesz sprzedawać?</a>
+    <a class="toc-item" href="#platnosci"><span class="toc-icon" style="background:var(--tag-purple);color:var(--tag-purple-text)">$</span> Płatności i prowizje</a>
+    <a class="toc-item" href="#funkcje"><span class="toc-icon" style="background:var(--tag-teal);color:var(--tag-teal-text)">F</span> Funkcje sklepu</a>
+    <a class="toc-item" href="#marketing"><span class="toc-icon" style="background:var(--tag-red);color:var(--tag-red-text)">M</span> Marketing i promocja</a>
+    <a class="toc-item" href="#integracje"><span class="toc-icon" style="background:var(--tag-blue);color:var(--tag-blue-text)">I</span> Integracje</a>
+    <a class="toc-item" href="#faq"><span class="toc-icon" style="background:var(--tag-orange);color:var(--tag-orange-text)">Q</span> Pytania i odpowiedzi</a>
+  </div>
+</nav>
+
+<!-- SEKCJA 1 -->
+<section class="section" id="czym-jest">
+  <div class="section-header">
+    <div class="section-num">?</div>
+    <h2>Czym jest naffy?</h2>
+  </div>
+  <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:20px;">
+    <strong style="color:var(--text)">naffy</strong> to polska platforma sprzedażowa dla twórców cyfrowych. Pozwala w kilka minut uruchomić profesjonalny e-sklep, podpiąć go pod social media i sprzedawać produkty oraz usługi online &mdash; bez abonamentu, bez wiedzy technicznej, bez ryzyka.
+  </p>
+  <div class="highlight-box">
+    <p><strong>Dla kogo?</strong> Dla twórców, ekspertów, coachów, trenerów, freelancerów i małych firm, którzy chcą zarabiać na swojej wiedzy, pasji i umiejętnościach w internecie. Niezależnie od tego, czy sprzedajesz ebooki, prowadzisz konsultacje, czy organizujesz webinary &mdash; naffy jest dla Ciebie.</p>
+  </div>
+</section>
+
+<!-- SEKCJA 2 -->
+<section class="section" id="start">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Jak zacząć? Krok po kroku</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-content">
+        <h4>Załóż darmowe konto</h4>
+        <p>Rejestracja zajmuje chwilę. Logujesz się przez Gmail &mdash; nie potrzebujesz dedykowanego hasła. Konto jest bezpłatne i nie wymaga podania karty płatniczej.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-content">
+        <h4>Dodaj swoje produkty</h4>
+        <p>Dodaj produkty cyfrowe (ebooki, kursy, szablony) lub usługi (konsultacje, webinary, szkolenia). Dla każdego produktu ustal opis, zdjęcie, cenę i ewentualne promocje.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-content">
+        <h4>Podłącz płatności (Stripe)</h4>
+        <p>Wypełnij profil firmowy lub osobisty i połącz konto ze Stripe &mdash; liderem płatności online. Dzięki temu od razu akceptujesz BLIK, karty, Apple Pay i Google Pay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-content">
+        <h4>Skonfiguruj sklep</h4>
+        <p>Dopasuj wygląd: nazwa, kolory tła, język sklepu. Dodaj meta tagi dla lepszego SEO. Twój sklep jest gotowy do działania!</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-content">
+        <h4>Udostępnij link i zarabiaj</h4>
+        <p>Wrzuć link do sklepu w bio na Instagramie, TikToku, Facebooku. Twórz posty i stories z bezpośrednimi linkami do produktów. Gotowe &mdash; sprzedajesz!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 3 -->
+<section class="section" id="produkty">
+  <div class="section-header">
+    <div class="section-num">P</div>
+    <h2>Co możesz sprzedawać?</h2>
+  </div>
+  <p style="font-size:0.95rem;color:var(--text-secondary);margin-bottom:20px;">naffy obsługuje szeroki katalog produktów i usług cyfrowych. Oto co możesz oferować swoim klientom:</p>
+  <div class="product-types">
+    <div class="product-pill"><span class="icon">📘</span> Ebooki</div>
+    <div class="product-pill"><span class="icon">📋</span> Poradniki</div>
+    <div class="product-pill"><span class="icon">🎓</span> Kursy online</div>
+    <div class="product-pill"><span class="icon">🎥</span> Webinary</div>
+    <div class="product-pill"><span class="icon">💬</span> Konsultacje</div>
+    <div class="product-pill"><span class="icon">📝</span> Szablony</div>
+    <div class="product-pill"><span class="icon">🎨</span> Pliki graficzne</div>
+    <div class="product-pill"><span class="icon">🎵</span> Pliki audio</div>
+    <div class="product-pill"><span class="icon">🎟️</span> Vouchery</div>
+    <div class="product-pill"><span class="icon">📦</span> Pakiety</div>
+    <div class="product-pill"><span class="icon">🔄</span> Subskrypcje</div>
+    <div class="product-pill"><span class="icon">☕</span> Postaw kawę</div>
+  </div>
+  <div class="highlight-box" style="margin-top:24px;">
+    <p><strong>Autowebinary:</strong> W naffy możesz nagrać webinar, a potem sprzedawać go jako autowebinar &mdash; generujesz dochód pasywny bez konieczności prowadzenia kolejnych transmisji na żywo.</p>
+  </div>
+</section>
+
+<!-- SEKCJA 4 -->
+<section class="section" id="platnosci">
+  <div class="section-header">
+    <div class="section-num">$</div>
+    <h2>Płatności i prowizje</h2>
+  </div>
+  <div class="pricing-bar">
+    <div class="pricing-stat">
+      <div class="num">0 zł</div>
+      <div class="label">Abonament</div>
+    </div>
+    <div class="pricing-stat">
+      <div class="num">6%</div>
+      <div class="label">Prowizja naffy</div>
+    </div>
+    <div class="pricing-stat">
+      <div class="num">~1-2%</div>
+      <div class="label">Opłata Stripe</div>
+    </div>
+    <div class="pricing-stat">
+      <div class="num">3 dni</div>
+      <div class="label">Wypłata na konto</div>
+    </div>
+  </div>
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card">
+      <span class="tag tag-green">Darmowy start</span>
+      <h4>Bez opłat na start</h4>
+      <p>Zakładanie konta, hosting plików, automatyzacje, integracje i nieograniczony dostęp do narzędzi sprzedażowych &mdash; wszystko za darmo. Płacisz dopiero, gdy sprzedajesz.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-blue">Metody płatności</span>
+      <h4>BLIK, karty, Apple Pay</h4>
+      <p>Klienci płacą przez Stripe: BLIK, karty kredytowe/debetowe, Apple Pay i Google Pay. BLIK szczególnie podnosi konwersję sprzedaży w Polsce.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-purple">Wypłaty</span>
+      <h4>Szybkie przelewy</h4>
+      <p>Pierwszy przelew do 7 dni roboczych. Kolejne &mdash; w ciągu 3 dni. Przy stałej sprzedaży nawet codzienne wypłaty na Twoje konto bankowe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 5 -->
+<section class="section" id="funkcje">
+  <div class="section-header">
+    <div class="section-num">F</div>
+    <h2>Funkcje sklepu naffy</h2>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <span class="tag tag-teal">Sklep</span>
+      <h4>Personalizacja wyglądu</h4>
+      <p>Zmień nazwę, kolory, język, tło sklepu. Dopasuj go do swojej marki osobistej w kilka kliknięć.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-teal">Sklep</span>
+      <h4>Meta Tagi SEO</h4>
+      <p>Twórz meta tagi, żeby Twoje produkty lepiej pozycjonowały się w Google i wyglądały atrakcyjnie w linkach na social mediach.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-orange">Produkty</span>
+      <h4>Subskrypcje</h4>
+      <p>Pobieraj płatności cykliczne: miesięczne, kwartalne, półroczne lub roczne. Model subskrypcyjny to stabilny, przewidywalny dochód.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-orange">Produkty</span>
+      <h4>Portal klienta</h4>
+      <p>Twoi klienci mają własny portal, gdzie mogą logować się i uzyskać dostęp do zakupionych kursów i materiałów.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-red">Promocje</span>
+      <h4>One-Time-Offer (OTO)</h4>
+      <p>Specjalna, jednorazowa propozycja zakupu produktu w wyjątkowo atrakcyjnej cenie. Idealna na upsell po zakupie.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-red">Promocje</span>
+      <h4>Vouchery na usługi</h4>
+      <p>Sprzedawaj vouchery na usługi stacjonarne: spotkania, bilety, wejściówki na wydarzenia. Łącz online z offline.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-purple">Social proof</span>
+      <h4>Opinie klientów</h4>
+      <p>Dodawaj opinie do produktów, żeby budować zaufanie i zwiększać konwersję. Realne recenzje to najlepsza reklama.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-purple">Funkcja</span>
+      <h4>Postaw kawę</h4>
+      <p>Pozwól swoim fanom wspierać Cię finansowo za pomocą funkcji „postaw kawę" &mdash; prosty sposób na napiwki od społeczności.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 6 -->
+<section class="section" id="marketing">
+  <div class="section-header">
+    <div class="section-num">M</div>
+    <h2>Marketing i promocja</h2>
+  </div>
+  <p style="font-size:0.95rem;color:var(--text-secondary);margin-bottom:20px;">naffy jest stworzony z myślą o sprzedaży przez social media. Oto jak możesz promować swoje produkty:</p>
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Link w bio</strong> &mdash; Umieść link do sklepu w bio na Instagramie, TikToku, Facebooku, YouTube i LinkedIn</span>
+    </div>
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Stories z linkiem</strong> &mdash; Twórz Stories z bezpośrednim linkiem do produktu (swipe up / naklejka z linkiem)</span>
+    </div>
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Posty z linkiem</strong> &mdash; W opisach postów podawaj link do konkretnego produktu lub całego sklepu</span>
+    </div>
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Email marketing</strong> &mdash; Wysyłaj kampanie mailowe do swoich klientów bezpośrednio z naffy</span>
+    </div>
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Promocje OTO</strong> &mdash; Twórz jednorazowe oferty specjalne zwiększające wartość koszyka po zakupie</span>
+    </div>
+    <div class="check-item">
+      <div class="check-mark">&#10003;</div>
+      <span><strong style="color:var(--text)">Google Tag Manager</strong> &mdash; Śledź ruch i sprzedaż dzięki automatycznemu Data Layer. Mierz skuteczność reklam</span>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 7 -->
+<section class="section" id="integracje">
+  <div class="section-header">
+    <div class="section-num">I</div>
+    <h2>Integracje</h2>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <span class="tag tag-blue">Płatności</span>
+      <h4>Stripe</h4>
+      <p>Główny operator płatności. Obsługuje BLIK, karty, Apple Pay, Google Pay. Bezpieczne transakcje z automatycznym rozliczeniem.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-green">Faktury</span>
+      <h4>Fakturownia</h4>
+      <p>Integracja z Fakturownią pozwala na automatyczne wystawianie faktur po każdej sprzedaży. Koniec z ręczną księgowością.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-orange">Analityka</span>
+      <h4>Google Tag Manager</h4>
+      <p>naffy automatycznie wysyła informacje o ruchu i sprzedaży do Data Layer. Podłącz GTM, żeby śledzić konwersje i optymalizować reklamy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 8 -->
+<section class="section" id="faq">
+  <div class="section-header">
+    <div class="section-num">Q</div>
+    <h2>Najczęściej zadawane pytania</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq">
+      <summary>Czy naffy jest naprawdę darmowe?</summary>
+      <div class="faq-body">Tak! Zakładanie konta i utrzymanie sklepu jest bezpłatne. naffy nie pobiera abonamentu &mdash; płacisz tylko 6% prowizji od każdej sprzedaży. Dodatkowo Stripe pobiera ok. 1-2% opłaty transakcyjnej. Nie ryzykujesz ani złotówki, dopóki nie zaczniesz zarabiać.</div>
+    </details>
+    <details class="faq">
+      <summary>Czy potrzebuję działalności gospodarczej?</summary>
+      <div class="faq-body">Nie! Możesz sprzedawać w ramach działalności nierejestrowanej. naffy pomaga również w rozliczeniu rocznym PIT-36 dla osób prowadzących działalność nierejestrowaną. Kiedy Twoje przychody przekroczą limit, warto rozważyć założenie firmy.</div>
+    </details>
+    <details class="faq">
+      <summary>Jak szybko dostanę pieniądze ze sprzedaży?</summary>
+      <div class="faq-body">Pierwsza wypłata trafia na konto w ciągu 7 dni roboczych. Każda kolejna &mdash; do 3 dni. Jeśli sprzedajesz regularnie, wypłaty mogą być nawet codzienne.</div>
+    </details>
+    <details class="faq">
+      <summary>Czy muszę rejestrować się do VAT-UE?</summary>
+      <div class="faq-body">To zależy od Twojej sytuacji. Jeśli sprzedajesz klientom z UE, musisz sprawdzić swoje obowiązki podatkowe. naffy udostępnia artykuły pomagające zrozumieć, kiedy rejestracja do VAT-UE jest konieczna i jak ją przeprowadzić.</div>
+    </details>
+    <details class="faq">
+      <summary>Czy mogę odsprzedawać produkty innych osób?</summary>
+      <div class="faq-body">Tylko jeśli posiadasz prawo do odsprzedaży (resale rights). naffy zabrania sprzedawania produktów, których nie jesteś autorem, chyba że masz na to pisemną zgodę. Szczegóły znajdziesz w regulaminie platformy.</div>
+    </details>
+    <details class="faq">
+      <summary>Jak logują się moi klienci?</summary>
+      <div class="faq-body">Klienci logują się do portalu klienta, gdzie mają dostęp do zakupionych kursów i materiałów. Logowanie jest proste &mdash; przez integrację z Gmail nie potrzebują osobnego hasła.</div>
+    </details>
+    <details class="faq">
+      <summary>Jak zabezpieczone jest moje konto?</summary>
+      <div class="faq-body">Konto jest zabezpieczone przez integrację z Google (Gmail). Nie potrzebujesz dedykowanego hasła &mdash; logujesz się bezpiecznie przez swoje konto Google.</div>
+    </details>
+    <details class="faq">
+      <summary>Co to jest autowebinar?</summary>
+      <div class="faq-body">Autowebinar to nagrane wcześniej szkolenie, które klienci mogą obejrzeć w dowolnym momencie po zakupie. Organizujesz webinar raz, nagrywasz go, a potem sprzedajesz wielokrotnie jako produkt cyfrowy &mdash; generujesz dochód pasywny.</div>
+    </details>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Przewodnik przygotowany na podstawie oficjalnego centrum pomocy naffy.<br>Aktualne informacje znajdziesz na stronie help.naffy.io/pl</p>
+</footer>
