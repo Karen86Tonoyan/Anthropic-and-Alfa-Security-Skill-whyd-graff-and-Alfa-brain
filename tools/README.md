@@ -18,7 +18,7 @@ python tools/validate-skill.py --all
 
 - SKILL.md exists in the skill directory
 - Valid YAML frontmatter (between `---` markers)
-- Required fields present: `name`, `description`, `domain`, `subdomain`, `tags`
+- Required fields present: `name`, `description`, `domain`, `subdomain`, `tags`, `version`, `author`, `license`
 - Name is kebab-case, 1–64 characters
 - Description is at least 50 characters (no upper limit; multi-line folded scalars are valid)
 - Domain is `cybersecurity`
