@@ -10,7 +10,7 @@
 
 [![GARS-2026 Survey](https://img.shields.io/badge/GARS--2026-Take%20the%20Survey-E8B84B?style=for-the-badge&logo=googleforms&logoColor=black)](https://mahipal.engineer/survey?utm_source=github_badge&utm_medium=readme&utm_campaign=gars2026)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-754-brightgreen?style=flat-square)](#whats-inside--26-security-domains)
+[![Skills](https://img.shields.io/badge/skills-756-brightgreen?style=flat-square)](#whats-inside--26-security-domains)
 [![Frameworks](https://img.shields.io/badge/frameworks-5-orange?style=flat-square)](#five-frameworks-one-skill-library)
 [![Domains](https://img.shields.io/badge/domains-26-9cf?style=flat-square)](#whats-inside--26-security-domains)
 [![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms)
@@ -23,7 +23,7 @@
 [![Hermes Agent](https://img.shields.io/badge/Hermes_Agent-compatible-blueviolet?style=flat)](https://github.com/NousResearch/hermes-agent)
 
 
-**754 production-grade cybersecurity skills · 26 security domains · 5 framework mappings · 26+ AI platforms**
+**756 production-grade cybersecurity skills · 26 security domains · 5 framework mappings · 26+ AI platforms**
 
 [Get Started](#quick-start) · [What's Inside](#whats-inside--26-security-domains) · [Frameworks](#five-frameworks-one-skill-library) · [Platforms](#compatible-platforms) · [Contributing](#contributing)
 
@@ -37,7 +37,7 @@
 
 A junior analyst knows which Volatility3 plugin to run on a suspicious memory dump, which Sigma rules catch Kerberoasting, and how to scope a cloud breach across three providers. **Your AI agent doesn't — unless you give it these skills.**
 
-This repo contains **754 structured cybersecurity skills** spanning **26 security domains**, each following the [agentskills.io](https://agentskills.io) open standard.  Every skill is mapped to **five industry frameworks** — MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, MITRE D3FEND, and NIST AI RMF  — making this the only open-source skills library with unified cross-framework coverage.  Clone it, point your agent at it, and your next security investigation gets expert-level guidance in seconds.
+This repo contains **756 structured cybersecurity skills** spanning **26 security domains**, each following the [agentskills.io](https://agentskills.io) open standard.  Every skill is mapped to **five industry frameworks** — MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, MITRE D3FEND, and NIST AI RMF  — making this the only open-source skills library with unified cross-framework coverage.  Clone it, point your agent at it, and your next security investigation gets expert-level guidance in seconds.
 
 ## Five frameworks, one skill library
 
@@ -57,7 +57,7 @@ No other open-source skills library maps every skill to all five frameworks.  On
 |---|---|---|---|---|---|
 | `analyzing-network-traffic-of-malware` | T1071 | DE.CM | AML.T0047 | D3-NTA | MEASURE-2.6 |
 
-### MITRE ATT&CK v19.1 — 754/754 skills mapped
+### MITRE ATT&CK v19.1 — 754/756 skills mapped
 
 Every skill carries a `mitre_attack` frontmatter list validated against **MITRE ATT&CK v19.1** (the latest release) using the official `mitreattack-python` library — 286 distinct techniques across all 15 Enterprise tactics, plus ICS and Mobile techniques where relevant. Zero revoked or deprecated IDs. v19.1's restructured Defense Evasion (now split into **Stealth** and **Defense Impairment**) is reflected below.
 
@@ -161,14 +161,14 @@ Existing security tool repos give you wordlists, payloads, or exploit code. None
 
 ## How AI agents use these skills
 
-Each skill costs **~30 tokens to scan** (frontmatter only)  and **500–2,000 tokens to fully load** (complete workflow). This progressive disclosure architecture lets agents search all 754 skills in a single pass without blowing context windows. 
+Each skill costs **~30 tokens to scan** (frontmatter only)  and **500–2,000 tokens to fully load** (complete workflow). This progressive disclosure architecture lets agents search all 756 skills in a single pass without blowing context windows. 
 
 ```
 User prompt: "Analyze this memory dump for signs of credential theft"
 
 Agent's internal process:
 
-  1. Scans 754 skill frontmatters (~30 tokens each)
+  1. Scans 756 skill frontmatters (~30 tokens each)
      → identifies 12 relevant skills by matching tags, description, domain
 
   2. Loads top 3 matches:
@@ -356,7 +356,7 @@ All platforms that support the [agentskills.io](https://agentskills.io) standard
 |---|---|---|
 | [v1.0.0](https://github.com/mukul975/Anthropic-Cybersecurity-Skills/releases/tag/v1.0.0) | March 11, 2026 | 734 skills · 26 domains · MITRE ATT&CK + NIST CSF 2.0 mapping · ATT&CK Navigator layer |
 
-Skills have continued to grow on `main` since v1.0.0 — the library now contains **754 skills** with **5-framework mapping**  (MITRE ATLAS, D3FEND, and NIST AI RMF added post-release).  Check [Releases](https://github.com/mukul975/Anthropic-Cybersecurity-Skills/releases) for the latest tagged version.
+Skills have continued to grow on `main` since v1.0.0 — the library now contains **756 skills** with **5-framework mapping**  (MITRE ATLAS, D3FEND, and NIST AI RMF added post-release).  Check [Releases](https://github.com/mukul975/Anthropic-Cybersecurity-Skills/releases) for the latest tagged version.
 
 ## Contributing
 
@@ -389,7 +389,7 @@ If you use this project in research or publications:
   year         = {2026},
   url          = {https://github.com/mukul975/Anthropic-Cybersecurity-Skills},
   license      = {Apache-2.0},
-  note         = {754 structured cybersecurity skills for AI agents,
+  note         = {756 structured cybersecurity skills for AI agents,
                   mapped to MITRE ATT\&CK, NIST CSF 2.0, MITRE ATLAS,
                   MITRE D3FEND, and NIST AI RMF}
 }

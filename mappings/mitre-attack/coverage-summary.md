@@ -1,6 +1,6 @@
 # ATT&CK Coverage Summary
 
-Coverage analysis of the 756 cybersecurity skills mapped to MITRE ATT&CK Enterprise v15 tactics.
+Coverage analysis of 754 cybersecurity skills mapped to MITRE ATT&CK Enterprise v15 tactics (of 756 total skills).
 
 ## Tactic Coverage Matrix
 
