@@ -252,7 +252,10 @@ def main():
         sys.exit(1)
 
     if sys.argv[1] == "--all":
-        skill_dirs = sorted(glob.glob("skills/*/"))
+        skill_dirs = sorted(
+            os.path.dirname(p) + "/"
+            for p in glob.glob("skills/**/SKILL.md", recursive=True)
+        )
         if not skill_dirs:
             print("ERROR: No skill directories found. Run from the repository root.")
             sys.exit(1)
