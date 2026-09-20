@@ -2,7 +2,7 @@
 name: alfa-agent-dashboard
 description: Build or audit an agent status dashboard. Shows all agents with live status (working/idle/waiting/error/done), platform badges, brain type, last run time. Works without backend using React state + localStorage. Integrates with Cerber for trust_score and verdict display. Use when building multi-agent UIs or auditing agent visibility in ALFA runtime.
 domain: cybersecurity
-subdomain: security-operations
+subdomain: soc-operations
 author: Karen Tonoyan
 version: 1.0
 license: Apache-2.0

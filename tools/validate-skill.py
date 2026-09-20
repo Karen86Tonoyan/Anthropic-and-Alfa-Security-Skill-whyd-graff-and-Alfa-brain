@@ -126,10 +126,17 @@ def parse_frontmatter(text):
         if not stripped or stripped.startswith("#"):
             continue
 
+        is_indented = line.startswith(" ") or line.startswith("\t")
+
         # Handle list items (must come before key: value to avoid misparse).
         if stripped.startswith("- ") and current_key:
             list_values.append(stripped[2:].strip().strip('"').strip("'"))
             data[current_key] = list(list_values)  # copy so future mutations don't leak
+            continue
+
+        # Skip indented non-list lines — they belong to a nested YAML mapping
+        # (e.g. nist_csf.version) and must not be parsed as top-level keys.
+        if is_indented:
             continue
 
         # Handle inline list: tags: [a, b, c]
