@@ -21,42 +21,52 @@ jobs:
       - name: Regenerate index.json
         run: |
           python3 << 'EOF'
-          import os, json, re
+          import os, json, re, glob
           from datetime import datetime, timezone
 
-          skills_dir = "skills"
           skills = []
 
-          for skill_name in sorted(os.listdir(skills_dir)):
-              skill_md = os.path.join(skills_dir, skill_name, "SKILL.md")
-              if not os.path.isfile(skill_md):
-                  continue
+          for skill_md in sorted(glob.glob("skills/**/SKILL.md", recursive=True)):
+              skill_dir = os.path.dirname(skill_md)
+              skill_name = os.path.basename(skill_dir)
               with open(skill_md, "r", encoding="utf-8") as f:
                   content = f.read()
               fm_match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
               description = ""
               if fm_match:
-                  m = re.search(r"^description:\s*(.+)$", fm_match.group(1), re.MULTILINE)
+                  fm = fm_match.group(1)
+                  m = re.search(r"^description:\s*(.+)$", fm, re.MULTILINE)
                   if m:
-                      description = m.group(1).strip().strip('"')
+                      val = m.group(1).strip().strip('"')
+                      if val in (">-", ">", "|", "|-"):
+                          lines = fm[m.end():].split("\n")
+                          desc_lines = []
+                          for line in lines[1:]:
+                              if line and not line[0].isspace():
+                                  break
+                              desc_lines.append(line.strip())
+                          description = " ".join(l for l in desc_lines if l)
+                      else:
+                          description = val
               skills.append({
                   "name": skill_name,
                   "description": description,
                   "domain": "cybersecurity",
-                  "path": f"skills/{skill_name}"
+                  "path": os.path.relpath(skill_dir)
               })
 
           index = {
-              "version": "1.1.0",
+              "version": "1.2.0",
               "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-              "repository": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+              "repository": "https://github.com/Karen86Tonoyan/Anthropic-and-Alfa-Security-Skill-whyd-graff-and-Alfa-brain",
               "domain": "cybersecurity",
               "total_skills": len(skills),
               "skills": skills
           }
 
           with open("index.json", "w", encoding="utf-8") as f:
-              json.dump(index, f, separators=(',', ':'))
+              json.dump(index, f, indent=2, ensure_ascii=False)
+              f.write("\n")
 
           print(f"Updated index.json: {len(skills)} skills")
           EOF
