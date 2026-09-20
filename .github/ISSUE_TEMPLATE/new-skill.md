@@ -19,7 +19,7 @@ assignees: ''
 <!-- e.g., T1021.001, T1078.004 -->
 
 ## NIST CSF function
-<!-- Identify, Protect, Detect, Respond, or Recover -->
+<!-- Govern, Identify, Protect, Detect, Respond, or Recover -->
 
 ## Why is this skill needed?
 <!-- What problem does it solve for security practitioners? -->

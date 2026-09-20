@@ -4,9 +4,9 @@ Complete mapping of each skill subdomain to NIST CSF 2.0 functions and categorie
 
 ## Subdomain-to-CSF Alignment
 
-| Subdomain | Skills | GV | ID | PR | PR | DE | RS | RC |
-|-----------|--------|-----|-----|-----|-----|-----|-----|-----|
-| | | Govern | Identify | Protect | Protect | Detect | Respond | Recover |
+| Subdomain | Skills | GV | ID | PR | DE | RS | RC |
+|-----------|--------|-----|-----|-----|-----|-----|-----|
+| | | Govern | Identify | Protect | Detect | Respond | Recover |
 
 ### Detailed Alignment
 

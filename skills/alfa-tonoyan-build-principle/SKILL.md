@@ -1,9 +1,11 @@
 ---
-name: ALFA Tonoyan Build Principle
+name: alfa-tonoyan-build-principle
 description: Pre-build decision framework. Prevents wasted effort by forcing validation before construction. Use before any build, feature, tool, or system. Answers: do I need this, will it change anything, is the cost worth it, is there demand.
-type: decision_framework
+domain: cybersecurity
+subdomain: security-operations
 author: Karen Tonoyan
 version: 1.0
+license: Apache-2.0
 tags: [build, decision, efficiency, anti-waste, pre-flight]
 ---
 

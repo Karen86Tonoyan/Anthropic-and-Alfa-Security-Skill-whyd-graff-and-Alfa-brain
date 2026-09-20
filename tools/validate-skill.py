@@ -10,7 +10,7 @@ import re
 import sys
 import glob
 
-REQUIRED_FIELDS = ["name", "description", "domain", "subdomain", "tags"]
+REQUIRED_FIELDS = ["name", "description", "domain", "subdomain", "tags", "version", "author", "license"]
 
 # Canonical subdomain → set of accepted aliases (including canonical itself).
 # When a skill uses an alias, the validator accepts it but the canonical form
