@@ -10,7 +10,14 @@ import re
 import sys
 import glob
 
-REQUIRED_FIELDS = ["name", "description", "domain", "subdomain", "tags"]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from skill_frontmatter import load_frontmatter, FrontmatterError
+
+# Kept in sync with the CI workflow (.github/workflows/validate-skills.yml),
+# which now delegates to this script so there is a single source of truth.
+REQUIRED_FIELDS = ["name", "description", "domain", "subdomain", "tags",
+                   "version", "author", "license"]
 
 # Canonical subdomain → set of accepted aliases (including canonical itself).
 # When a skill uses an alias, the validator accepts it but the canonical form
@@ -50,7 +57,7 @@ _SUBDOMAIN_ALIASES = {
     "blockchain-security": {"blockchain-security"},
     "data-protection": {"data-protection"},
     "deception-technology": {"deception-technology"},
-    "firmware-analysis": {"firmware-analysis", "firmware-security"},
+    "hardware-firmware-security": {"hardware-firmware-security", "firmware-analysis", "firmware-security"},
     "privacy-compliance": {"privacy-compliance"},
     "purple-team": {"purple-team"},
     "supply-chain-security": {"supply-chain-security"},
@@ -78,96 +85,6 @@ YELLOW = "\033[93m"
 RESET = "\033[0m"
 
 
-def parse_frontmatter(text):
-    """Extract YAML frontmatter as a dict (simple stdlib-only parser).
-
-    Handles the common SKILL.md patterns:
-    - key: scalar value
-    - key: [inline, list]
-    - key:\n  - list\n  - items
-    - key: >-  (folded scalar — content on following indented lines)
-
-    Edge case note: ``list_values`` is reset to ``[]`` whenever a new key
-    with a scalar value is encountered, so a list from a prior block cannot
-    leak into an unrelated key.  The only remaining theoretical edge case is
-    a key with *no* value that is immediately followed by non-list, non-empty
-    lines that look like scalars — those lines are currently ignored (the key
-    is treated as having no value).  This is acceptable for well-formed SKILL.md
-    files and matches the behaviour contributors expect.
-    """
-    if not text.startswith("---"):
-        return None
-    end = text.find("---", 3)
-    if end == -1:
-        return None
-    block = text[3:end].strip()
-    data = {}
-    current_key = None
-    list_values: list = []
-    in_folded = False  # True when we are collecting a YAML >- / > folded scalar
-    folded_lines: list = []
-
-    for line in block.split("\n"):
-        stripped = line.strip()
-
-        # Flush a completed folded scalar when we hit the next top-level key.
-        if in_folded and stripped and not line.startswith(" ") and not line.startswith("\t"):
-            if current_key and folded_lines:
-                data[current_key] = " ".join(folded_lines)
-            in_folded = False
-            folded_lines = []
-            current_key = None
-
-        if in_folded:
-            if stripped:
-                folded_lines.append(stripped)
-            continue
-
-        if not stripped or stripped.startswith("#"):
-            continue
-
-        # Handle list items (must come before key: value to avoid misparse).
-        if stripped.startswith("- ") and current_key:
-            list_values.append(stripped[2:].strip().strip('"').strip("'"))
-            data[current_key] = list(list_values)  # copy so future mutations don't leak
-            continue
-
-        # Handle inline list: tags: [a, b, c]
-        m = re.match(r"^(\w[\w_-]*):\s*\[(.+)\]\s*$", stripped)
-        if m:
-            current_key = m.group(1)
-            items = [i.strip().strip('"').strip("'") for i in m.group(2).split(",")]
-            data[current_key] = items
-            list_values = list(items)
-            continue
-
-        # Handle key: >- or key: > (folded scalar start)
-        m = re.match(r"^(\w[\w_-]*):\s*>[-|]?\s*$", stripped)
-        if m:
-            current_key = m.group(1)
-            list_values = []
-            in_folded = True
-            folded_lines = []
-            continue
-
-        # Handle key: value (plain scalar)
-        m = re.match(r'^(\w[\w_-]*):\s*(.*)$', stripped)
-        if m:
-            current_key = m.group(1)
-            val = m.group(2).strip().strip('"').strip("'")
-            list_values = []  # reset; new scalar key cannot inherit a prior list
-            if val:
-                data[current_key] = val
-            # If val is empty the key is present but value-less (e.g. start of block list)
-            continue
-
-    # Flush any trailing folded scalar.
-    if in_folded and current_key and folded_lines:
-        data[current_key] = " ".join(folded_lines)
-
-    return data
-
-
 def validate_skill(skill_dir):
     """Validate a single skill directory. Returns list of error strings."""
     errors = []
@@ -177,16 +94,11 @@ def validate_skill(skill_dir):
         return [f"SKILL.md not found in {skill_dir}"]
 
     try:
-        with open(skill_md, encoding="utf-8") as f:
-            content = f.read()
+        fm = load_frontmatter(skill_md)
+    except FrontmatterError as e:
+        return [str(e)]
     except IOError as e:
         return [f"Could not read SKILL.md: {e}"]
-    except UnicodeDecodeError as e:
-        return [f"Encoding error in SKILL.md (not valid UTF-8): {e}"]
-
-    fm = parse_frontmatter(content)
-    if fm is None:
-        return ["No valid YAML frontmatter found (must start with ---)"]
 
     # Check required fields.
     for field in REQUIRED_FIELDS:
@@ -252,7 +164,12 @@ def main():
         sys.exit(1)
 
     if sys.argv[1] == "--all":
-        skill_dirs = sorted(glob.glob("skills/*/"))
+        # Skip .bak backup directories — they are stale copies without a SKILL.md.
+        # glob may return OS-native separators, so normalize before checking.
+        skill_dirs = sorted(
+            d for d in glob.glob("skills/*/")
+            if not d.rstrip("/\\").endswith(".bak")
+        )
         if not skill_dirs:
             print("ERROR: No skill directories found. Run from the repository root.")
             sys.exit(1)
